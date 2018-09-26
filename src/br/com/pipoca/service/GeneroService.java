@@ -11,12 +11,9 @@ import br.com.pipoca.model.Genero;
 
 @Service
 public class GeneroService {
-
-	private GeneroDAO dao;
 	
-	public GeneroService() {
-		this.dao = new GeneroDAO();
-	}
+	@Autowired
+	private GeneroDAO dao;	
 
 	public Genero buscarGenero(int id) throws IOException {
 		return dao.buscarGenero(id);

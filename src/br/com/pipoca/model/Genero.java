@@ -3,7 +3,8 @@ package br.com.pipoca.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Genero implements Serializable{
+public class Genero implements Serializable {
+	
 	private int id;
 	private String nome;
 	private List<Filme> filmes;

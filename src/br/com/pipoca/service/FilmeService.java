@@ -14,12 +14,9 @@ import br.com.pipoca.model.Filme;
 @Service
 public class FilmeService {
 	
-
+	@Autowired
 	private FilmeDAO dao;
 	
-	public FilmeService() {
-		this.dao = new FilmeDAO();
-	}
 	
 	public Filme buscarFilme(int id) throws IOException{
 		return dao.buscarFilme(id);
