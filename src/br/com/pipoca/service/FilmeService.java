@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,15 @@ public class FilmeService {
 		return dao.buscarFilme(id);
 	}
 	
-	public Filme inserirFilme(Filme filme) throws IOException {
-		int id = dao.inserirFilme(filme);
-		filme.setId(id);
-		return filme;
+	public void inserirFilme(Filme filme) throws IOException {
+		dao.inserirFilme(filme);
 	}
 	
 	public ArrayList<Filme> listarFilmes(String chave) throws IOException{
 		return dao.listarFilmes(chave);
 	}
 
-	public ArrayList<Filme> listarFilmes() throws IOException{
+	public List<Filme> listarFilmes() throws IOException{
 		return dao.listarFilmes();
 	}
 
@@ -40,8 +39,8 @@ public class FilmeService {
 		dao.updateFilme(filme);
 	}
 
-	public void deleteFilme(Integer id) throws IOException {
-		dao.deletaFilme(id);
+	public void deleteFilme(Filme filme) throws IOException {
+		dao.deletaFilme(filme);;
 		
 	}
 	

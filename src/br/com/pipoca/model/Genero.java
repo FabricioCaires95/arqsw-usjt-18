@@ -3,9 +3,21 @@ package br.com.pipoca.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="genero")
 public class Genero implements Serializable {
 	
+	@Id
+	@GeneratedValue
 	private int id;
+	
 	private String nome;
 	private List<Filme> filmes;
 	

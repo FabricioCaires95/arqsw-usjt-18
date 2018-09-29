@@ -7,56 +7,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
 
 import br.com.pipoca.model.Filme;
 import br.com.pipoca.model.Genero;
 
-@Component
+@Entity
 public class GeneroDAO {
+	
+	@PersistenceContext
+	EntityManager manager;
 
 	public Genero buscarGenero(int id) throws IOException {
-		Genero genero = null;
-		String sql = "select id, nome from genero where id=?";
-
-		try (Connection conn = ConnectionFactory.getConnection(); 
-				PreparedStatement pst = conn.prepareStatement(sql);) {
-
-			pst.setInt(1, id);
-			try (ResultSet rs = pst.executeQuery();) {
-
-				if (rs.next()) {
-					genero = new Genero();
-					genero.setId(id);
-					genero.setNome(rs.getString("nome"));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IOException(e);
-		}
-		return genero;
+		return manager.find(Genero.class, id);
 	}
 	
-	public ArrayList<Genero> listarGeneros() throws IOException {
-		ArrayList<Genero> generos = new ArrayList<>();
-		String sql = "select id, nome from genero order by nome";
-
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(sql);
-				ResultSet rs = pst.executeQuery();) {
-
-			while (rs.next()) {
-				Genero genero = new Genero();
-				genero.setId(rs.getInt("id"));
-				genero.setNome(rs.getString("nome"));
-				generos.add(genero);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IOException(e);
-		}
+	@SuppressWarnings("unchecked")
+	public List<Genero> listarGeneros() throws IOException {
+		List<Genero> generos = manager.createQuery("select g from genero g").getResultList();
+		
 		return generos;
 	}
 

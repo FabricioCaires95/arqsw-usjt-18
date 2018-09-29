@@ -20,12 +20,12 @@ public class GeneroService {
 	}
 
 	public ArrayList<Genero> listarGeneros() throws IOException {
-		return dao.listarGeneros();
+		return (ArrayList<Genero>) dao.listarGeneros();
 	}
 
 	public ArrayList<Genero> listaGenFilmes() throws IOException {
 
-		ArrayList<Genero> generos = dao.listarGeneros();
+		ArrayList<Genero> generos = (ArrayList<Genero>) dao.listarGeneros();
 
 		for (int i = 0; i < generos.size(); i++) {
 			generos.get(i).setFilmes(dao.listarFilmes(generos.get(i)));

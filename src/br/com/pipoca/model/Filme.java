@@ -3,12 +3,23 @@ package br.com.pipoca.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
+@Table(name="filme")
 public class Filme implements Serializable {
+	
+	@Id
+	@GeneratedValue
 	private int id;
 	
 	@Size(max=128, message="{max 128}") 
@@ -18,7 +29,8 @@ public class Filme implements Serializable {
 	
 	@Size(min=1, max=100, message="valor entre 1 e 100") 
 	private double popularidade;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+		
+	@Temporal(TemporalType.DATE)
 	private Date dataLancamento;
 	private String posterPath;
 	private String diretor;

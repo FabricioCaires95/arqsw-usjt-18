@@ -3,6 +3,7 @@ package br.com.pipoca.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -113,7 +115,7 @@ public class FilmeController {
 			genero.setNome(generoService.buscarGenero(genero.getId()).getNome());
 			filme.setGenero(genero);
 
-			filme = filmeService.inserirFilme(filme);
+			filmeService.inserirFilme(filme);
 
 			return "redirect: /pipoca/visualizar/" + filme.getId();
 		} catch (IOException e) {
@@ -124,9 +126,9 @@ public class FilmeController {
 	}
 	
 	@PostMapping("/delete")
-	public String  deleteFilme(Integer id) throws IOException {
-		System.out.println(id);
-		filmeService.deleteFilme(id);
+	public String  deleteFilme(@RequestBody Filme filme) throws IOException {
+		//System.out.println(id);
+		filmeService.deleteFilme(filme);
 		return "redirect: /pipoca/filmes";
 	}
 	
@@ -140,9 +142,9 @@ public class FilmeController {
 	@GetMapping("/editar/{id}")
 	public ModelAndView editarFilme(@PathVariable Integer id) throws IOException {
 		andView = new ModelAndView("EditarFilme");
-		Filme filme = filmeService.buscarFilme(id);
+		filmeService.buscarFilme(id);
 		ArrayList<Genero> generos = generoService.listarGeneros();
-		andView.addObject("filme", filme);
+		//andView.addObject("filme", filme);
 		andView.addObject("generos", generos);
 		return andView;
 	}
@@ -158,7 +160,7 @@ public class FilmeController {
 	@RequestMapping("/filmes")
 	public ModelAndView reiniciarLista(HttpSession session) throws IOException {
 		session.setAttribute("lista", null);
-		ArrayList<Filme> lista;
+		List<Filme> lista;
 		lista = filmeService.listarFilmes();
 		andView = new ModelAndView("ListarFilmes");
 		andView.addObject("lista",lista);
@@ -170,7 +172,7 @@ public class FilmeController {
 		try {
 			//HttpSession session = ((HttpServletRequest) model).getSession();
 
-			ArrayList<Filme> lista;
+			List<Filme> lista;
 			if (chave != null && chave.length() > 0) {
 				lista = filmeService.listarFilmes(chave);
 			} else {
