@@ -39,6 +39,11 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public char[] getEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

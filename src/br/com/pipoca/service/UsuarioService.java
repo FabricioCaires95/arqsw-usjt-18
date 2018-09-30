@@ -20,5 +20,7 @@ public class UsuarioService {
 		usuario =  dao.autenticar(usuario);
 		return usuario;
 	}
+
+
 	
 }

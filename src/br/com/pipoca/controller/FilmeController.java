@@ -198,10 +198,10 @@ public class FilmeController {
 	@GetMapping("/catalogo/lancamento")
 	public ModelAndView porDtLancamento(Model model) throws IOException {
 		ModelAndView andView = new ModelAndView("CatalogoDataLancamento");
-		ArrayList<Filme> filmesAno = filmeService.porData("ano",1);
+		List<Filme> filmesAno = filmeService.porData("ano",1);
 		
-		ArrayList<Filme> filmesPenultimo = filmeService.porData("ano",2);
-		ArrayList<Filme> filmesMes = filmeService.porData("mes",1);
+		List<Filme> filmesPenultimo = filmeService.porData("ano",2);
+		List<Filme> filmesMes = filmeService.porData("mes",1);
 		andView.addObject("filmesAno",filmesAno);
 		andView.addObject("filmesMes",filmesMes);
 		andView.addObject("filmesPenultimo",filmesPenultimo);
@@ -211,11 +211,11 @@ public class FilmeController {
 	@GetMapping("/catalogo/popularidade")
 	public ModelAndView porPopularidade(Model model) throws IOException {
 		ModelAndView andView = new ModelAndView("CatalogoPopularidade");
-		ArrayList<Filme> filmes1 = filmeService.listarPopulares(0,30);
-		ArrayList<Filme> filmes2 = filmeService.listarPopulares(31,50);
-		ArrayList<Filme> filmes3 = filmeService.listarPopulares(51,60);
-		ArrayList<Filme> filmes4 = filmeService.listarPopulares(61,80);
-		ArrayList<Filme> filmes5 = filmeService.listarPopulares(81,100);
+		List<Filme> filmes1 = filmeService.listarPopulares(0,40);
+		List<Filme> filmes2 = filmeService.listarPopulares(21,50);
+		List<Filme> filmes3 = filmeService.listarPopulares(51,60);
+		List<Filme> filmes4 = filmeService.listarPopulares(41,80);
+		List<Filme> filmes5 = filmeService.listarPopulares(71,100);
 		andView.addObject("filmes1",filmes1);
 		andView.addObject("filmes2",filmes2);
 		andView.addObject("filmes3",filmes3);
