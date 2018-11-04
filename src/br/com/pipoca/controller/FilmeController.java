@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
 import br.com.pipoca.model.Filme;
+import br.com.pipoca.model.FilmeTMDb;
 import br.com.pipoca.model.Genero;
 import br.com.pipoca.service.FilmeService;
 import br.com.pipoca.service.GeneroService;
@@ -222,6 +224,22 @@ public class FilmeController {
 		andView.addObject("filmes4",filmes4);
 		andView.addObject("filmes5",filmes5);
 		return andView;
+	}
+	
+	@RequestMapping("/listar_filmes_tmdb")
+	public String listarFilmesTMDb(HttpSession session, Model model, String chave) throws IOException {
+		ArrayList<FilmeTMDb> lista;
+		lista = filmeService.buscaFilmesTMDb();
+		session.setAttribute("lista", lista);
+		return "ListarFilmesTMDb";
+	}
+	
+	@RequestMapping("/visualizar_filme_tmdb")
+	public String visualizarFilmeTMDb(Model model, @RequestParam("id") String id) throws IOException {
+		FilmeTMDb filme;
+		filme = filmeService.buscaFilmeTMDb(id);
+		model.addAttribute("filme", filme);
+		return "VisualizarFilmeTMDb";
 	}
 	
 }
